@@ -1,8 +1,6 @@
 package com.example.springboot.service
 
-import com.example.springboot.model.Student
-import com.example.springboot.model.StudentRequest
-import com.example.springboot.model.Students
+import com.example.springboot.model.*
 import com.example.springboot.sqlconfig.SqlConfig
 import org.ktorm.dsl.eq
 import org.ktorm.entity.add
@@ -31,6 +29,22 @@ open class StudentsService: SqlConfig() {
             database.sequenceOf(Students)
                 .add(newStudent)
 
+        return affectedRecordsNumber == 1
+    }
+
+    fun updateStudent(studentUpdateRequest: StudentUpdateRequest): Boolean {
+        val foundStudent = findStudentByNumber(studentUpdateRequest.number)
+        foundStudent?.number = studentUpdateRequest.number
+        foundStudent?.city = studentUpdateRequest.city
+
+        val affectedRecordsNumber = foundStudent?.flushChanges()
+        return affectedRecordsNumber == 1
+    }
+
+    fun deleteStudent(studentDeleteRequest: StudentDeleteRequest): Boolean {
+        val foundStudent = findStudentByNumber(studentDeleteRequest.number)
+
+        val affectedRecordsNumber = foundStudent?.delete()
         return affectedRecordsNumber == 1
     }
 }

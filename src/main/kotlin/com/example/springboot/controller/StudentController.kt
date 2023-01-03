@@ -1,8 +1,6 @@
 package com.example.springboot.controller
 
-import com.example.springboot.model.Response
-import com.example.springboot.model.StudentRequest
-import com.example.springboot.model.StudentResponse
+import com.example.springboot.model.*
 import com.example.springboot.service.StudentsService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -40,6 +38,30 @@ class StudentController: StudentsService() {
     fun createStudent(@RequestBody requestVO: StudentRequest): ResponseEntity<Response> {
         println("$requestVO")
         val success = addStudent(studentRequest = requestVO)
+        var resonse = Response(success)
+        if (success) {
+            return ResponseEntity<Response>(resonse, HttpStatus.OK)
+        } else {
+            return ResponseEntity<Response>(resonse, HttpStatus.BAD_REQUEST)
+        }
+    }
+
+    @PostMapping("/students/update")
+    fun updateStudentByNumber(@RequestBody requestVO: StudentUpdateRequest): ResponseEntity<Response> {
+        println("$requestVO")
+        val success = updateStudent(requestVO)
+        var resonse = Response(success)
+        if (success) {
+            return ResponseEntity<Response>(resonse, HttpStatus.OK)
+        } else {
+            return ResponseEntity<Response>(resonse, HttpStatus.BAD_REQUEST)
+        }
+    }
+
+    @PostMapping("/students/delete")
+    fun deleteStudentByNumber(@RequestBody requestVO: StudentDeleteRequest): ResponseEntity<Response> {
+        println("$requestVO")
+        val success = deleteStudent(requestVO)
         var resonse = Response(success)
         if (success) {
             return ResponseEntity<Response>(resonse, HttpStatus.OK)
