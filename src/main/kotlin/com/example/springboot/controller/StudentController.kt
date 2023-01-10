@@ -14,7 +14,7 @@ import java.util.ArrayList
 @RestController
 class StudentController: StudentsService() {
 
-    @GetMapping("/students")
+    @GetMapping("/api/students")
     fun getAllStudents(): ResponseEntity<List<StudentResponse>> {
         val students = findAllStudents()
         println("$students")
@@ -26,7 +26,7 @@ class StudentController: StudentsService() {
         return ResponseEntity<List<StudentResponse>>(responseList, HttpStatus.OK)
     }
 
-    @GetMapping("/students/{number}")
+    @GetMapping("/api/students/{number}")
     fun getStudentByNumber(@PathVariable("number") number: String): ResponseEntity<StudentResponse> {
         val student = findStudentByNumber(number)
         println("$student")
@@ -34,7 +34,7 @@ class StudentController: StudentsService() {
         return ResponseEntity<StudentResponse>(response, HttpStatus.OK)
     }
 
-    @PostMapping("/students/add")
+    @PostMapping("/api/students/add")
     fun createStudent(@RequestBody requestVO: StudentRequest): ResponseEntity<Response> {
         println("$requestVO")
         val success = addStudent(studentRequest = requestVO)
@@ -46,7 +46,7 @@ class StudentController: StudentsService() {
         }
     }
 
-    @PostMapping("/students/update")
+    @PostMapping("/api/students/update")
     fun updateStudentByNumber(@RequestBody requestVO: StudentUpdateRequest): ResponseEntity<Response> {
         println("$requestVO")
         val success = updateStudent(requestVO)
@@ -58,7 +58,7 @@ class StudentController: StudentsService() {
         }
     }
 
-    @PostMapping("/students/delete")
+    @PostMapping("/api/students/delete")
     fun deleteStudentByNumber(@RequestBody requestVO: StudentDeleteRequest): ResponseEntity<Response> {
         println("$requestVO")
         val success = deleteStudent(requestVO)

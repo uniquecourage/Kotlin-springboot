@@ -4,6 +4,7 @@ import org.ktorm.entity.Entity
 import org.ktorm.schema.*
 import java.time.LocalDate
 
+//define db table students
 interface Student : Entity<Student> {
     companion object : Entity.Factory<Student>()
 
