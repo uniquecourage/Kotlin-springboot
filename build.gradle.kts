@@ -29,6 +29,10 @@ dependencies {
 	implementation("io.ktor:ktor-serialization:2.2.1")
 	implementation("io.ktor:ktor-server-netty:2.2.1")
 	implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
+//  JWT
+	implementation("io.jsonwebtoken:jjwt:0.9.1")
+	implementation("javax.xml.bind:jaxb-api:2.3.0")
+
 	testImplementation("io.ktor:ktor-server-tests:2.2.1")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit:1.6.10")
 	runtimeOnly("org.postgresql:postgresql")

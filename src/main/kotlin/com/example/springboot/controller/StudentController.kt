@@ -1,7 +1,7 @@
 package com.example.springboot.controller
 
-import com.example.springboot.model.*
 import com.example.springboot.service.StudentsService
+import com.example.springboot.vo.*
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping

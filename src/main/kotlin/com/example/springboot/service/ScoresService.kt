@@ -1,6 +1,6 @@
 package com.example.springboot.service
 
-import com.example.springboot.model.ScoreForStudentResponse
+import com.example.springboot.vo.ScoreForStudentResponse
 import com.example.springboot.model.Scores
 import com.example.springboot.model.Students
 import com.example.springboot.sqlconfig.SqlConfig
@@ -16,12 +16,14 @@ open class ScoresService: SqlConfig() {
             .select(Students.name, Students.number, Scores.subject, Scores.score)
             .where(Students.number eq studentNumber)
             .forEach {row ->
-                resultList.add(ScoreForStudentResponse(
+                resultList.add(
+                    ScoreForStudentResponse(
                     row.getString(1),
                     row.getString(2),
                     row.getString(3),
                     row.getInt(4)
-                ))
+                )
+                )
             }
         return resultList
     }

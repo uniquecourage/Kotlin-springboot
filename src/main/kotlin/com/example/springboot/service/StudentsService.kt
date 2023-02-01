@@ -2,6 +2,9 @@ package com.example.springboot.service
 
 import com.example.springboot.model.*
 import com.example.springboot.sqlconfig.SqlConfig
+import com.example.springboot.vo.StudentDeleteRequest
+import com.example.springboot.vo.StudentRequest
+import com.example.springboot.vo.StudentUpdateRequest
 import org.ktorm.dsl.eq
 import org.ktorm.entity.add
 import org.ktorm.entity.find

@@ -1,6 +1,6 @@
 package com.example.springboot.controller
 
-import com.example.springboot.model.ScoreForStudentResponse
+import com.example.springboot.vo.ScoreForStudentResponse
 import com.example.springboot.service.ScoresService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
