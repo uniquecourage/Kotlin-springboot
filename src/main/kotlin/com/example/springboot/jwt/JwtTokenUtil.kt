@@ -9,6 +9,7 @@ open class JwtTokenUtil {
 
     private val secret = "MY_SECRET"
     private val expiration = 9000000
+    private val prefix = "Bearer "
 
 //    fun generateToken(userDetails: HashMap<String, String> ): JwtResponse {
 //        var userName = userDetails.get("username")
@@ -28,7 +29,10 @@ open class JwtTokenUtil {
         val claims = mapOf("username" to userName, "password" to password)
         val token = Jwts.builder().setClaims(claims).setExpiration(Date(System.currentTimeMillis() + expiration))
             .signWith(SignatureAlgorithm.HS512, secret).compact()
-        var jwtResponse = JwtResponse(token)
+        val newToken = StringBuilder()
+        newToken.append(prefix)
+            .append(token)
+        var jwtResponse = JwtResponse(newToken.toString())
         return jwtResponse
     }
 
@@ -46,9 +50,11 @@ open class JwtTokenUtil {
 
     fun validateToken(token: String) {
         try {
+//            val realToken = if (token.startsWith(prefix)) token.substring(7) else token
+            val realToken = token.substring(prefix.length)
             Jwts.parser()
                 .setSigningKey(secret)
-                .parseClaimsJws(token)
+                .parseClaimsJws(realToken)
         } catch (e: SignatureException) {
             throw AuthException("Invalid JWT signature.")
         } catch (e: MalformedJwtException) {
