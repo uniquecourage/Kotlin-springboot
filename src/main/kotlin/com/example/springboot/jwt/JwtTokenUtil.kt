@@ -49,6 +49,9 @@ open class JwtTokenUtil {
 //    }
 
     fun validateToken(token: String) {
+        if (!token.startsWith(prefix)) {
+            throw AuthException("Invalid JWT token.")
+        }
         try {
 //            val realToken = if (token.startsWith(prefix)) token.substring(7) else token
             val realToken = token.substring(prefix.length)
