@@ -1,53 +1,19 @@
 package com.example.springboot.service
 
 import com.example.springboot.model.*
-import com.example.springboot.sqlconfig.SqlConfig
 import com.example.springboot.vo.StudentDeleteRequest
 import com.example.springboot.vo.StudentRequest
 import com.example.springboot.vo.StudentUpdateRequest
-import org.ktorm.dsl.eq
-import org.ktorm.entity.add
-import org.ktorm.entity.find
-import org.ktorm.entity.sequenceOf
-import org.ktorm.entity.toList
 
-open class StudentsService: SqlConfig() {
+interface StudentsService {
 
-    fun findAllStudents(): List<Student> =
-        database.sequenceOf(Students).toList()
+    fun findAllStudents(): List<Student>
 
-    fun findStudentByNumber(studentNumber: String): Student? =
-    database.sequenceOf(Students)
-    .find { student -> student.number eq studentNumber }
+    fun findStudentByNumber(studentNumber: String): Student?
 
-    fun addStudent(studentRequest: StudentRequest): Boolean {
-        val newStudent = Student {
-            name = studentRequest.name
-            number = studentRequest.number
-            city = studentRequest.city
-            registerDate = studentRequest.registerDate
-        }
+    fun addStudent(studentRequest: StudentRequest): Boolean
 
-        val affectedRecordsNumber =
-            database.sequenceOf(Students)
-                .add(newStudent)
+    fun updateStudent(studentUpdateRequest: StudentUpdateRequest): Boolean
 
-        return affectedRecordsNumber == 1
-    }
-
-    fun updateStudent(studentUpdateRequest: StudentUpdateRequest): Boolean {
-        val foundStudent = findStudentByNumber(studentUpdateRequest.number)
-        foundStudent?.number = studentUpdateRequest.number
-        foundStudent?.city = studentUpdateRequest.city
-
-        val affectedRecordsNumber = foundStudent?.flushChanges()
-        return affectedRecordsNumber == 1
-    }
-
-    fun deleteStudent(studentDeleteRequest: StudentDeleteRequest): Boolean {
-        val foundStudent = findStudentByNumber(studentDeleteRequest.number)
-
-        val affectedRecordsNumber = foundStudent?.delete()
-        return affectedRecordsNumber == 1
-    }
+    fun deleteStudent(studentDeleteRequest: StudentDeleteRequest): Boolean
 }
