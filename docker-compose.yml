@@ -1,0 +1,14 @@
+version: "1"
+services:
+  springbootapp:
+    image: myspringboot
+    ports:
+      - "8080:8080"
+      - "5432:5432"
+    networks: #網路相關配置
+      some-network: #指定使用網路
+        aliases: #容器別名
+          - springbootapp
+networks: #網路相關配置
+  some-network:
+    driver: bridge
